@@ -1,10 +1,10 @@
 var express=require('express')
-var router=express.Route()
+var router=express.Router()
 
 var checkLogin=require('../middlewares/check').checkLogin
 
 router.get('/',function (req,res,next) {
-    res.render('index', { title: 'Express' });
+    res.render('posts')
 })
 router.post('/create', checkLogin, function (req, res, next) {
     res.send('发表文章')
