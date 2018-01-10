@@ -3,7 +3,7 @@ var User=require('../lib/mongo').User
 UserModel={
     create:function create(user) {
         // return User.create(user).exec()
-        return User.insertOne(user).exec()
+        return User.create(user).exec()
 
     },
     getUserByName:function getUserByName(name) {
