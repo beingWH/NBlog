@@ -10,6 +10,8 @@ var routes=require('./routes')
 var MongoStore = require('connect-mongo')(session)
 var flash = require('connect-flash')
 var pkg = require('./package')
+var winston=require('winston')
+var expressWinston=require('express-winston')
 
 // var index = require('./routes/index');
 // var users = require('./routes/users');
@@ -52,8 +54,10 @@ app.use(require('express-formidable')({
 
 // 设置模板全局常量
 app.locals.blog = {
-    title: pkg.name,
-    description: pkg.description
+    // title: pkg.name,
+    // description: pkg.description
+    title: '平日吐槽专用',
+    description: '社会主义接班人就数你最秀'
 }
 
 // 添加模板必需的三个变量
@@ -63,25 +67,30 @@ app.use(function (req, res, next) {
     res.locals.error = req.flash('error').toString()
     next()
 })
+// 正常请求的日志
+app.use(expressWinston.logger({
+    transports: [
+        new (winston.transports.Console)({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/success.log'
+        })
+    ]
+}))
 routes(app)
-
-
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-//
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
+// 错误请求的日志
+app.use(expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/error.log'
+        })
+    ]
+}))
 
 module.exports = app;

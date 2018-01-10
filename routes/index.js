@@ -1,10 +1,4 @@
-// var express = require('express');
-// var router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
 
 module.exports=function (app) {
     app.get('/',function (req,res) {
@@ -15,6 +9,16 @@ module.exports=function (app) {
     app.use('/signin',require('./signin'));
     app.use('/signout',require('./signout'));
     app.use('/comments',require('./comments'));
+    app.use(function (req,res) {
+        if (!res.headersSent) {
+            return res.status(404).render('404')
+        }
+    })
+    app.use(function (err, req, res, next) {
+        console.error(err)
+        req.flash('error', err.message)
+        res.redirect('/posts')
+    })
 
 }
 
