@@ -42,47 +42,47 @@
 ## 笔记
 
 ### 模块系统
-  一个.js文件需要被其他.js文件引用时，可以采用模块化方案.
-  1. 方案一
-  ```JS
-  // 1.js
-  module.exports={
-    create:function create(post){
-      return Post.create(post).exec()
-    }
+一个.js文件需要被其他.js文件引用时，可以采用模块化方案.
+1. 方案一
+```JS
+// 1.js
+module.exports={
+  create:function create(post){
+    return Post.create(post).exec()
   }
-  //2.js
-  var PostModel=require(1)
-  PostModel.create(post)  
-  ```
-  2. 方案二
-  ```JS
-  // 1.js
-  PostModel={
-    create:function create(post){
-      return Post.create(post).exec()
-    }
+}
+//2.js
+var PostModel=require(1)
+PostModel.create(post)  
+```
+2. 方案二
+```JS
+// 1.js
+PostModel={
+  create:function create(post){
+    return Post.create(post).exec()
   }
-  module.exports=PostModel
-  //2.js
-  var PostModel=require(1)
-  PostModel.create(post)  
-  ```
+}
+module.exports=PostModel
+//2.js
+var PostModel=require(1)
+PostModel.create(post)  
+```
   
-  3. 方案三
-  ```JS
-  //1.js
-  exports.User=mongolass.model('User',{
-    name: { type: 'string' },
-    password: { type: 'string' },
-    avatar: { type: 'string' },
-    gender: { type: 'string', enum: ['m', 'f', 'x'] },
-    bio: { type: 'string' }
-  })
-  //2.js
-  var User=require(1).User
-  User.create(user).exec()
-  ```
+3. 方案三
+```JS
+//1.js
+exports.User=mongolass.model('User',{
+  name: { type: 'string' },
+  password: { type: 'string' },
+  avatar: { type: 'string' },
+  gender: { type: 'string', enum: ['m', 'f', 'x'] },
+  bio: { type: 'string' }
+})
+//2.js
+var User=require(1).User
+User.create(user).exec()
+```
 
   
   
