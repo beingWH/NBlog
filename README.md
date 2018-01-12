@@ -53,9 +53,9 @@
   }
   //2.js
   var PostModel=require(1)
-  PostModel.create(post)
-  
+  PostModel.create(post)  
   ```
+  
   2. 方案二
   ```JS
   // 1.js
@@ -69,6 +69,7 @@
   var PostModel=require(1)
   PostModel.create(post)  
   ```
+  
   3. 方案三
   ```JS
   //1.js
