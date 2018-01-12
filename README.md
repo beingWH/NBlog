@@ -41,20 +41,20 @@
   
 ## 笔记
 
-  ### 模块系统
-    一个.js文件需要被其他.js文件引用时，可以采用模块化方案.
-    1. 方案一
-    ```JS
-    // 1.js
-    module.exports={
-      create:function create(post){
-        return Post.create(post).exec()
-      }
+### 模块系统
+  一个.js文件需要被其他.js文件引用时，可以采用模块化方案.
+  1. 方案一
+  ```JS
+  // 1.js
+  module.exports={
+    create:function create(post){
+      return Post.create(post).exec()
     }
-    //2.js
-    var PostModel=require(1)
-    PostModel.create(post)
-    ```
+  }
+  //2.js
+  var PostModel=require(1)
+  PostModel.create(post)
+  ```
 
   
   
