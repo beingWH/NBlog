@@ -83,7 +83,43 @@ exports.User=mongolass.model('User',{
 var User=require(1).User
 User.create(user).exec()
 ```
-
+### 面向对象
+```JS
+//1.JS
+class BaseResult{
+  constructor(code,data){
+    this.code=code;
+    this.data=data;
+  }
+  setCode(code){
+    this.code=code;
+  }
+  getCode(){
+    return this.code;
+  }
+  setData(data){
+    this.data=data;
+  }
+  getData(){
+    return this.data;
+  }
+}
+module.exports={
+  SUCCESS:new BaseResult(0,{}),
+  FAILED:new BaseResult(1,{})
+}
+//也可以
+module.exports=BaseResult;
+```
+调用时:
+```JS
+var BaseResult=require(1);
+BaseResult.SUCCESS.setData(100);
+//也可以
+var BaseResult=require(1);
+baseresult=new BaseResult(0,{});
+baseresult.setData(100);
+```
   
   
   
