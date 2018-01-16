@@ -54,6 +54,7 @@ router.get('/create', checkLogin, function (req, res, next) {
 router.get('/:postId', function (req, res, next) {
     const postId = req.params.postId
 
+    //无关系汇总并行任务
     Promise.all([
         PostModel.getPostById(postId), // 获取文章信息
         CommentModel.getComments(postId),

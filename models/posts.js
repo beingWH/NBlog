@@ -84,8 +84,8 @@ module.exports={
     updatePostById:function updatePostById(postId,data) {
         return Post.update({_id:postId},{$set:data}).exec()
     },
-    delPostById:function delPostById(postId,author) {
-        return Post.remove({_id:postId,author:author}).exec().then(function (res) {
+    delPostById:function delPostById(postId) {
+        return Post.remove({_id:postId}).exec().then(function (res) {
             if(res.result.ok && res.result.n>0){
                 return CommentModel.delCommentsByPostId(postId)
             }
