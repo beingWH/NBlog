@@ -160,6 +160,25 @@ app.use(function (req, res, next) {
   next()
 })
 ```
+### 关于config-lite
+> config-lite 是一个轻量的读取配置文件的模块。config-lite 会根据环境变量（NODE_ENV）的不同加载 config 目录下不同的配置文件。如果不设置NODE_ENV，则读取默认的 default 配置文件，如果设置了 NODE_ENV，则会合并指定的配置文件和 default 配置文件作为配置，config-lite 支持.js、.json、.node、.yml、.yaml 后缀的文件。
+----
+使用以下方式操作config-lite
+```JS
+module.exports={
+    port:3000,
+    session:{
+        secret:'myblog',
+        key:'myblog',
+        maxAge:2592000000
+    },
+    mongodb:'mongodb://192.9.190.199:27017/myblog'
+}
+```
+```JS
+var config=require('config-lite')(__dirname)
+config.session.secret
+```
 
   
   
