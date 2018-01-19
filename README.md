@@ -121,14 +121,22 @@ baseresult=new BaseResult(0,{});
 baseresult.setData(100);
 ```
 ### 中间件
->
-中间件是req与res之间需要去处理的细节，如session，cookie，router，logger等。<br>
-中间件在程序编译时被压入stack数组保存，等待匹配后触发进行<br>
-中间件使用`app.use()`形式保存<br>
-中间件使用`next()`形式进行接力执行<br>
+> 中间件是req与res之间需要去处理的细节，如session，cookie，router，logger等。<br>
+> 中间件在程序编译时被压入stack数组保存，等待匹配后触发进行<br>
+> 中间件使用`app.use()`形式保存<br>
+> 中间件使用`next()`形式进行接力执行<br>
   
-  
-  
-  
+中间件需要注意压入stack数组的顺序，因为这关系到调用中间件时的顺序，据我试验，中间件一般性次序为：
+
+```JS
+app.use(session) //session启用
+app.use(mongodb) //数据库连接
+app.use(flash)  //flash通知
+app.use(res.locals) //本地变量
+app.use(logger) //正常日志
+routes(app) //route
+app.use(logger) //错误日志
+```
+  
   
   
