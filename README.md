@@ -232,15 +232,19 @@ Post.plugin('addCommentsCount',{
 })
 ```
 ### ES5
+
 > [深入Promise](https://zhuanlan.zhihu.com/p/25178630)
 
 1. Promise
 Promise本身是一个构造函数，它可以调用四种方法来进行Promise<T>对象的构造。
-  - Promise.all
-  - Promise.reject
-  - Promise.race
-  - Promise.resolve
+  
+  - Promise.all(iterable)  返回一个Promise<T>对象，异步回调为一个values数组
+  - Promise.reject 返回一个Promise<T>对象，异步回调值为捕获错误的Promise<T>对象
+  - Promise.race(iterable) 返回一个Promise<T>对象，异步回调值为第一个值
+  - Promise.resolve（any） 返回一个Promise<T>,异步回调为第一个值为any
+  
 通过以上四种方法，将传入对象包裹成一个Promise<T>对象，Promise<T>实现以下接口方法
+  
   - .then 异步回调，return出的还是一个Promise<T>对象
   - .catch 错误捕获
 
@@ -266,6 +270,8 @@ Promise.all([
         .catch(next)   //抛到错误处理中间件
 })
 ```
+使用以下方法对Promise进行试验。
+
 
 
 
