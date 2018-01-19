@@ -272,6 +272,7 @@ Promise.all([
 ```
 使用以下方法对Promise进行试验。
 
+![](http://i4.bvimg.com/628812/b4a8762ec0df1871.png)
 
 
 
