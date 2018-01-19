@@ -132,11 +132,35 @@ baseresult.setData(100);
 app.use(session) //session启用
 app.use(mongodb) //数据库连接
 app.use(flash)  //flash通知
+app.use(formidable) //表单提交
+app.locals//本地常量
 app.use(res.locals) //本地变量
 app.use(logger) //正常日志
 routes(app) //route
 app.use(logger) //错误日志
 ```
+
+### 关于app.locals与res.locals
+在调用`res.render`的时候，express会merge三处结果传入要渲染的模板。
+> 优先级为: res.render传入对象>res.locals对象>app.locals对象
+------
+从某种意义来说，app.locals与res.locals之间并没有区别，但我们通常在app.locals下挂载常量信息，在res.locals下挂载变量信息，在挂载后，渲染模板时，就不需要从`res.render`的时候传入。
+```JS
+// 设置模板全局常量
+app.locals.blog = {
+  title: pkg.name,
+  description: pkg.description
+}
+
+// 添加模板必需的三个变量
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user
+  res.locals.success = req.flash('success').toString()
+  res.locals.error = req.flash('error').toString()
+  next()
+})
+```
+
   
   
   
