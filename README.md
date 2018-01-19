@@ -179,6 +179,12 @@ module.exports={
 var config=require('config-lite')(__dirname)
 config.session.secret
 ```
+### 关于flash
+当我们操作成功时，需要显示一个成功的通知，如登录成功跳转到主页时，需要显示一个`登录成功`的通知，我们可以基于`connect-flash`中间件实现这个功能。
+
+`connect-flash`是基于session实现的：设置初始值`req.session.flash={}`，通过`req.flash(name,value)`设置这个对象下的字段和值，通过`req.flash(name)`获取这个对象下的值，同时删除这个字段，实现只显示一次刷新后消失的功能。
+
+
 
   
   
