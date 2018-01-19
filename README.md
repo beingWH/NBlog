@@ -184,6 +184,55 @@ config.session.secret
 
 `connect-flash`是基于session实现的：设置初始值`req.session.flash={}`，通过`req.flash(name,value)`设置这个对象下的字段和值，通过`req.flash(name)`获取这个对象下的值，同时删除这个字段，实现只显示一次刷新后消失的功能。
 
+### 关于mongolass
+mongolass是用于连接mogodb数据库的工具，这里主要记录mongolass.plugin功能，plugin用于扩展mongolass功能。
+> 当使用mongolass.plugin扩展时，可以在所有model上使用扩展功能。
+> 当使用model.plugin扩展时，仅可在此model上使用扩展功能.
+
+plugin主要用于为数据库查询出的object添加attribute。
+比如，根据id生成timestamp
+```JS
+mongolass.plugin('addCreatedAt', {
+    afterFind: function (results) {
+       return results.map(function (item) {
+            item.created_at = moment(objectIdToTimestamp(item._id)).format('YYYY-MM-DD HH:mm')
+            return item
+        })
+    },
+    afterFindOne: function (result) {
+        if (result) {
+            result.created_at = moment(objectIdToTimestamp(result._id)).format('YYYY-MM-DD HH:mm')
+        }
+        return result
+    }
+})
+```
+比如，根据外键关系计算出包含的其他模型记录数量
+```JS
+Post.plugin('addCommentsCount',{
+    afterFind:function (posts) {
+        return Promise.all(posts.map(
+            function (post) {
+                return CommentModel.getCommentsCount(post._id).then(function (commentsCount) {
+                    post.commentsCount=commentsCount
+                    return post
+                })
+            }
+))
+    },
+    afterFindOne: function (post) {
+        if (post) {
+            return CommentModel.getCommentsCount(post._id).then(function (count) {
+                post.commentsCount = count
+                return post
+            })
+        }
+        return post
+    }
+})
+```
+
+
 
 
   
