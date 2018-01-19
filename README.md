@@ -120,6 +120,12 @@ var BaseResult=require(1);
 baseresult=new BaseResult(0,{});
 baseresult.setData(100);
 ```
+### 中间件
+>
+中间件是req与res之间需要去处理的细节，如session，cookie，router，logger等。<br>
+中间件在程序编译时被压入stack数组保存，等待匹配后触发进行<br>
+中间件使用`app.use()`形式保存<br>
+中间件使用`next()`形式进行接力执行<br>
   
   
   
