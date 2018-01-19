@@ -231,6 +231,9 @@ Post.plugin('addCommentsCount',{
     }
 })
 ```
+### ES5
+1. Promise/then
+
 
 
 
