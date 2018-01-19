@@ -232,7 +232,41 @@ Post.plugin('addCommentsCount',{
 })
 ```
 ### ES5
-1. Promise/then
+> [深入Promise](https://zhuanlan.zhihu.com/p/25178630)
+
+1. Promise
+Promise本身是一个构造函数，它可以调用四种方法来进行Promise<T>对象的构造。
+  - Promise.all
+  - Promise.reject
+  - Promise.race
+  - Promise.resolve
+通过以上四种方法，将传入对象包裹成一个Promise<T>对象，Promise<T>实现以下接口方法
+  - .then 异步回调，return出的还是一个Promise<T>对象
+  - .catch 错误捕获
+
+基本实现 Promise.all().then().catch()
+```JS
+Promise.all([
+        PostModel.getPostById(postId),
+        CommentModel.getComments(postId),
+        PostModel.incPv(postId)// pv 加 1
+    ])
+        .then(function (result) {
+            const post = result[0]
+            const comments=result[1]
+            if (!post) {
+                throw new Error('该文章不存在')
+            }
+
+            res.render('post', {
+                post: post,
+                comments:comments
+            })
+        })
+        .catch(next)   //抛到错误处理中间件
+})
+```
+
 
 
 
