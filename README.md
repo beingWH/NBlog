@@ -237,7 +237,7 @@ Post.plugin('addCommentsCount',{
 
 1. Promise
 Promise本身是一个构造函数，它可以调用四种方法来进行Promise<T>对象的构造。
-  
+---
   - Promise.all(iterable)  返回一个Promise<T>对象，异步回调为一个values数组
   - Promise.reject 返回一个Promise<T>对象，异步回调值为捕获错误的Promise<T>对象
   - Promise.race(iterable) 返回一个Promise<T>对象，异步回调值为第一个值
